@@ -1,3 +1,4 @@
+import { calculateMedia } from "../helper/calculateMedia.js"
 import { foodSpotsModel } from "./foodSpots-model.js"
 
 let reviews = [
@@ -37,7 +38,6 @@ const reviewsModel = {
 
         reviews.push(review)
         foodSpotsModel.add_f_reviews(review)
-
         return review
     },
 

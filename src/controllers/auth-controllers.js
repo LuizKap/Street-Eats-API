@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
 import { v4 as uuidv4 } from 'uuid';
-const uuid = uuidv4();
 import bcrypt from 'bcrypt'
 
 import { usersModel } from '../models/users-model.js';
@@ -19,7 +18,7 @@ const registerController = (req, res) => {
         return res.status(409).json({ message: 'Esse email ja existe em nosso sistema' })
     }
 
-    const user = { id: uuid, nome: nome, email: email, senha: bcrypt.hashSync(senha, 10) }
+    const user = { id: uuidv4(), nome: nome, email: email, senha: bcrypt.hashSync(senha, 10) }
 
     usersModel.addUser(user)
     res.status(201).json({ message: 'Usuario Cadastrado com sucesso' })
@@ -53,7 +52,6 @@ const loginController = (req, res) => {
 const deleteAccountController = (req, res) => {
     const userId = req.user.id
 
-    if (!userId) return res.status(404).json('Dados em falta')
     try {
         usersModel.deleteUser(userId)
         foodSpotsModel.destroyDeletedUser_f_reviews(userId)

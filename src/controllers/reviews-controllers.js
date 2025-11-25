@@ -22,7 +22,7 @@ const reviewsControllers = {
         const { foodSpotId } = req.params
         const { comentario, nota } = req.body
 
-        if ([userId, foodSpotId, comentario, nota].some(campo => !campo))
+        if (!userId || !foodSpotId || !comentario || nota === undefined)
             return res.status(400).json({ message: 'Dados em falta' })
 
         if (typeof comentario !== "string" || typeof nota !== "number")
